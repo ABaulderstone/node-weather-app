@@ -1,12 +1,7 @@
 const { default: axios } = require('axios');
 
 const prompts = require('prompts');
-const {
-  codeToEmoji,
-  generateTable,
-  extractLatLong,
-  extractLocation,
-} = require('./utils');
+const { generateTable, extractLatLong, extractLocation } = require('./utils');
 
 require('dotenv').config();
 

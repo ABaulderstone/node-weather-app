@@ -74,10 +74,10 @@ const generateTable = (weatherData) => {
   for (let i = 0; i < 7; i++) {
     table.push([
       time[i],
-      temperature_2m_min[i],
-      temperature_2m_max[i],
+      temperature_2m_min[i] + '℃',
+      temperature_2m_max[i] + '℃',
       codeToEmoji(weathercode[i]),
-      precipitation_sum[i],
+      precipitation_sum[i] + 'mm',
       sunset[i],
     ]);
   }
