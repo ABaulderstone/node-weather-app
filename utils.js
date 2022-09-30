@@ -1,3 +1,5 @@
+const Table = require('cli-table3');
+
 const codeToEmoji = (code) => {
   //   0	Clear sky
   // 1, 2, 3	Mainly clear, partly cloudy, and overcast
@@ -53,4 +55,48 @@ const codeToEmoji = (code) => {
   }
 };
 
-console.log(codeToEmoji(51));
+const generateTable = (weatherData) => {
+  const {
+    daily: {
+      time,
+      weathercode,
+      temperature_2m_max,
+      temperature_2m_min,
+      precipitation_sum,
+      sunset,
+    },
+  } = weatherData;
+
+  const table = new Table({
+    head: ['Date', 'Min', 'Max', 'Type', 'Rainfall', 'Sunset'],
+  });
+
+  for (let i = 0; i < 7; i++) {
+    table.push([
+      time[i],
+      temperature_2m_min[i],
+      temperature_2m_max[i],
+      codeToEmoji(weathercode[i]),
+      precipitation_sum[i],
+      sunset[i],
+    ]);
+  }
+  return table;
+};
+
+const extractLatLong = (response) => {
+  const { lat, lng } = response.data.results[0].geometry.location;
+  return { lat, lng };
+};
+
+const extractLocation = (response) => {
+  const { formatted_address } = response.data.results[0];
+  return formatted_address;
+};
+
+module.exports = {
+  codeToEmoji,
+  generateTable,
+  extractLatLong,
+  extractLocation,
+};
